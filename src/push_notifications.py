@@ -34,7 +34,7 @@ def on_locust_quit(*args, **kwargs):
 
 
 class PushNotifications(HttpUser):
-    """Load test push notifactions service"""
+    """Load test push notifications service"""
 
     wait_time = between(5, 9)
     host = config.SVC_BASE_URL
