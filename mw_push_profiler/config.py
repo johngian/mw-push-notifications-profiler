@@ -7,10 +7,6 @@ from decouple import config, Csv
 
 SVC_BASE_URL = config("MW_SVC_PROF_PUSH_BASE_URL")
 
-TOXIPROXY_ENABLED = config(
-    "MW_SVC_PROF_PUSH_TOXIPROXY_ENABLED", default="False", cast=bool
-)
-
 TOXIPROXY = {
     "API_URL": config("MW_SVC_PROF_PUSH_TOXIPROXY_URL", default=""),
     "PROXIES": config(
