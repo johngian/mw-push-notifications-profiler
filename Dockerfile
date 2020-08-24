@@ -10,4 +10,6 @@ RUN pip install -r /tmp/requirements.txt
 RUN mkdir /code
 COPY . /code
 WORKDIR /code
-RUN pip install -e .
+RUN python setup.py install
+
+CMD locust -f src/push_notifications.py
