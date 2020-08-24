@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+locust = "*"
+requests = "*"
+python-decouple = "*"
+
+[dev-packages]
+black = "==19.10b0"
+
+[requires]
+python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
+
+[packages.e1839a8]
+path = "."
+editable = true
