@@ -5,7 +5,7 @@ import requests
 
 from locust import HttpUser, task, between, events
 
-from mw_push_notifications_profiler import config
+import config
 
 
 @events.init.add_listener
