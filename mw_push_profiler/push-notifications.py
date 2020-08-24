@@ -1,8 +1,8 @@
-import request
+import requests
 
 from locust import HttpUser, task, between
 
-import config
+from mw_push_profiler import config
 
 
 HTTP_HEADERS = {"content-type": "application/json"}
