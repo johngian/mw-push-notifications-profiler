@@ -1,3 +1,4 @@
+import logging
 import requests
 
 from locust import HttpUser, task, between
@@ -11,9 +12,24 @@ class PushNotifications(HttpUser):
 
     def on_start(self):
         """ on_start is called when a Locust start before any task is scheduled """
+        if config.TOXIPROXY_ENABLED:
+            for proxy in config.TOXIPROXY["PROXIES"]:
+                logging.info(f"Creating toxiproxy: {proxy}")
+                requests.post(f"{config.TOXIPROXY_BASE_URL}/proxies", json=proxy)
+
+                for toxic in config.TOXIPROXY["TOXICS"]:
+                    logging.info(f"Creating toxic: {toxic}")
+                    requests.post(
+                        f"{config.TOXIPROXY_BASE_URL}/proxies/{proxy['name']}/toxics",
+                        json=toxic,
+                    )
 
     def on_stop(self):
         """ on_stop is called when the TaskSet is stopping """
+        if config.TOXIPROXY_ENABLED:
+            for proxy in config.TOXIPROXY.PROXIES:
+                logging.info(f"Deleting toxiproxy: {proxy}")
+                requests.delete(f"{config.TOXIPROXY_BASE_URL}/proxies", json=proxy)
 
     @task
     def apnsSendMessage(self):
