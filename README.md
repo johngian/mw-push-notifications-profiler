@@ -13,7 +13,7 @@ Parameters:
 
 | Key                                  | Value                                     | Default           | Required |
 |:-------------------------------------|:------------------------------------------|:------------------|----------|
-| `SVC_BASE_URL`                       | Push notification service base url        | `None`            | `True`   |
+| `MW_SVC_PROF_PUSH_BASE_URL`          | Push notification service base url        | `None`            | `True`   |
 | `MW_SVC_PROF_APNS_TOKENS`            | Comma seperated list of APNS tokens       | `"APNSTESTTOKEN"` | `False`  |
 | `MW_SVC_PROF_APNS_DRYRUN`            | APNS dry run flag                         | `True`            | `False`  |
 | `MW_SVC_PROF_FCM_TOKENS`             | Comma seperated list of APNS tokens       | `"FCMTESTTOKEN"`  | `False`  |
