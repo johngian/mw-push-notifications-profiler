@@ -3,9 +3,34 @@
 import logging
 import requests
 
-from locust import HttpUser, task, between
+from locust import HttpUser, task, between, events
 
 from mw_push_profiler import config
+
+
+@events.init.add_listener
+def on_locust_init(*args, **kwargs):
+    """Configure toxiproxy on load testing suite init"""
+    if config.TOXIPROXY_ENABLED:
+        for proxy in config.TOXIPROXY["PROXIES"]:
+            logging.info("Creating toxiproxy: %s", proxy)
+            requests.post(f"{config.TOXIPROXY['API_URL']}/proxies", json=proxy)
+
+            for toxic in config.TOXIPROXY["TOXICS"]:
+                logging.info("Creating toxic: %s", toxic)
+                requests.post(
+                    f"{config.TOXIPROXY['API_URL']}/proxies/{proxy['name']}/toxics",
+                    json=toxic,
+                )
+
+
+@events.quitting.add_listener
+def on_locust_quit(*args, **kwargs):
+    """Cleanup toxiproxy config when locust quits"""
+    if config.TOXIPROXY_ENABLED:
+        for proxy in config.TOXIPROXY["PROXIES"]:
+            logging.info("Deleting toxiproxy: %s", proxy)
+            requests.delete(f"{config.TOXIPROXY['API_URL']}/proxies", json=proxy)
 
 
 class PushNotifications(HttpUser):
@@ -14,26 +39,8 @@ class PushNotifications(HttpUser):
     wait_time = between(5, 9)
     host = config.SVC_BASE_URL
 
-    def on_start(self):
-        """Prepare resiliency testing setup"""
-        if config.TOXIPROXY_ENABLED:
-            for proxy in config.TOXIPROXY["PROXIES"]:
-                logging.info("Creating toxiproxy: %s", proxy)
-                requests.post(f"{config.TOXIPROXY['API_URL']}/proxies", json=proxy)
-
-                for toxic in config.TOXIPROXY["TOXICS"]:
-                    logging.info("Creating toxic: %s", toxic)
-                    requests.post(
-                        f"{config.TOXIPROXY['API_URL']}/proxies/{proxy['name']}/toxics",
-                        json=toxic,
-                    )
-
     def on_stop(self):
         """Cleanup resiliency testing setup """
-        if config.TOXIPROXY_ENABLED:
-            for proxy in config.TOXIPROXY["PROXIES"]:
-                logging.info("Deleting toxiproxy: %s", proxy)
-                requests.delete(f"{config.TOXIPROXY['API_URL']}/proxies", json=proxy)
 
     @task
     def apns_send_message(self):
