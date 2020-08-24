@@ -1,3 +1,5 @@
+"""Configuration for mw_push_profiler"""
+
 import json
 
 from decouple import config, Csv
