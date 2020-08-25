@@ -63,3 +63,29 @@ class PushNotifications(HttpUser):
             "dryRun": config.FCM["DRY_RUN"],
         }
         self.client.post(url, json=payload)
+
+    @task
+    def apns_send_bogus_tokens(self):
+        """Send an APNS message with bogus tokens"""
+        url = "/v1/message/apns"
+        payload = {
+            "messageType": config.MESSAGE_TYPE,
+            "deviceTokens": [
+                f"apnstoken{i}" for i in range(config.BOGUS_TOKENS_MAX_SIZE)
+            ],
+            "dryRun": config.APNS["DRY_RUN"],
+        }
+        self.client.post(url, json=payload)
+
+    @task
+    def fcm_send_bogus_tokens(self):
+        """Send FCM message with bogus tokens"""
+        url = "/v1/message/fcm"
+        payload = {
+            "messageType": config.MESSAGE_TYPE,
+            "deviceTokens": [
+                f"fcmtoken{i}" for i in range(config.BOGUS_TOKENS_MAX_SIZE)
+            ],
+            "dryRun": config.FCM["DRY_RUN"],
+        }
+        self.client.post(url, json=payload)
