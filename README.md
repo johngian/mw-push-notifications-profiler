@@ -2,8 +2,7 @@
 ## Install
 
 ``` sh
-$ docker build . -t mw-push-profiler:latest
-$ docker run mw-push-profiler:latest
+$ docker build . -t mw-push-notifications-profiler:latest
 ```
 
 ## Configuration
@@ -21,3 +20,13 @@ Parameters:
 | `MW_SVC_PROF_PUSH_TOXIPROXY_URL`     | Toxiproxy API URL                         | `""`              | `False`  |
 | `MW_SVC_PROF_PUSH_TOXIPROXY_PROXIES` | List of toxiproxy proxies required (JSON) | `[]`              | `False`  |
 | `MW_SVC_PROF_PUSH_TOXIPROXY_TOXICS`  | List of toxics required (JSON)            | `[]`              | `False`  |
+
+## Running the tests
+
+``` sh
+# Using a .env file
+$ docker run -v $(pwd)/.env:/code/.env mw-push-notifications-profiler:latest
+
+# Using env vars
+$ docker run -e <env_var>=<value> mw-push-notifications-profiler:latest
+```
