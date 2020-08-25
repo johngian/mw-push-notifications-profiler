@@ -24,9 +24,9 @@ Parameters:
 ## Running the tests
 
 ``` sh
-# Using a .env file
-$ docker run -v $(pwd)/.env:/code/.env mw-push-notifications-profiler:latest
+# Using an env file
+$ docker run --env-file FILE mw-push-notifications-profiler:latest
 
 # Using env vars
-$ docker run -e <env_var>=<value> mw-push-notifications-profiler:latest
+$ docker run -e VAR=VALUE mw-push-notifications-profiler:latest
 ```
