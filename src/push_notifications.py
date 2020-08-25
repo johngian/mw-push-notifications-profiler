@@ -39,9 +39,6 @@ class PushNotifications(HttpUser):
     wait_time = between(5, 9)
     host = config.SVC_BASE_URL
 
-    def on_stop(self):
-        """Cleanup resiliency testing setup """
-
     @task
     def apns_send_message(self):
         """Send an APNS message"""
