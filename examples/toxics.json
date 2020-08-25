@@ -1,0 +1,8 @@
+[
+    {"type": "latency", "attributes": {"latency": 1000, "jitter": 200}, "toxicity": 0.7},
+    {"type": "bandwidth", "attributes": {"rate": 100}, "toxicity": 0.7},
+    {"type": "slow_close", "attributes": {"delay": 100}, "toxicity": 0.7},
+    {"type": "timeout", "attributes": {"timeout": 3000}, "toxicity": 0.7},
+    {"type": "slicer", "attributes": {"average_size": 20, "size_variation": 10, "delay": 100}, "toxicity": 0.7},
+    {"type": "limit_data", "attributes": {"bytes": 500}, "toxicity": 0.7}
+]

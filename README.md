@@ -21,6 +21,17 @@ Parameters:
 | `MW_SVC_PROF_PUSH_TOXIPROXY_PROXIES` | List of toxiproxy proxies required (JSON) | `[]`              | `False`  |
 | `MW_SVC_PROF_PUSH_TOXIPROXY_TOXICS`  | List of toxics required (JSON)            | `[]`              | `False`  |
 
+## Toxics
+
+Toxiproxy uses toxics to manipulate the traffic in the network. Under [examples/toxics.json](/examples/toxics.json)
+you can find a list of all the available toxics that we can use for resiliency testing.
+
+A useful helper to convert the json to one line to be used in the config is:
+
+``` sh
+$ cat examples/toxics.json | jq -c
+```
+
 ## Running the tests
 
 ``` sh
