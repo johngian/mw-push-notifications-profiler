@@ -31,4 +31,4 @@ FCM = {
     "DRY_RUN": config("MW_SVC_PROF_FCM_DRYRUN", default="True", cast=bool),
 }
 
-BOGUS_TOKENS_MAX_SIZE = config("MW_SVC_PROF_BOGUS_TOKENS_MAX_SIZE", default="100")
+BOGUS_TOKENS_MAX_SIZE = config("MW_SVC_PROF_BOGUS_TOKENS_MAX_SIZE", default="100", cast=int)
